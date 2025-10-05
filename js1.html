@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form2 - JavaScript & jQuery Events Full Demo</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 25px;
+    }
+    input, button {
+      margin: 5px;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    button {
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+      border: 2px solid black;
+      width: 300px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    #answers {
+      margin-top: 25px;
+      border: 2px dashed #888;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Form2: DOM Manipulation and Event Handling (All Events)</h2>
+
+  <input id="numb1" placeholder="Enter number 1">
+  <input id="numb2" placeholder="Enter number 2"><br>
+
+  <button id="addBtn" style="background-color: lightgreen;">Add</button>
+  <button id="subBtn" style="background-color: lightblue;">Subtract</button>
+  <button id="mulBtn" style="background-color: lightcoral;">Multiply</button>
+  <button id="divBtn" style="background-color: lightyellow;">Divide</button>
+  <button id="modBtn" style="background-color: lightgray;">Modulus</button>
+  <button id="clearBtn" style="background-color: pink;">Clear</button>
+
+  <p id="result">Result will appear here</p>
+
+  <h3>Show Answers to Theory Questions</h3>
+  <div id="qButtons"></div>
+
+  <div id="answers"></div>
+
+  <script>
+  $(document).ready(function() {
+
+    // =============================
+    // Keyboard Events Demonstration
+    // =============================
+    $("#numb1, #numb2").on("keydown", function() {
+      $("#result").text("Key Down Detected").css("color", "purple").css("border-color", "purple");
+    });
+
+    $("#numb1, #numb2").on("keypress", function() {
+      $("#result").text("Key Pressed").css("color", "orange").css("border-color", "orange");
+    });
+
+    $("#numb1, #numb2").on("keyup", function() {
+      $("#result").text("Key Released").css("color", "blue").css("border-color", "blue");
+    });
+
+    // =============================
+    // Arithmetic Function
+    // =============================
+    function calculate(op, color) {
+      let x = parseFloat($("#numb1").val());
+      let y = parseFloat($("#numb2").val());
+      let res;
+
+      if (isNaN(x) || isNaN(y)) {
+        res = "Please enter valid numbers!";
+      } else {
+        switch (op) {
+          case "+": res = x + y; break;
+          case "-": res = x - y; break;
+          case "*": res = x * y; break;
+          case "/": res = y !== 0 ? (x / y).toFixed(2) : "Cannot divide by zero"; break;
+          case "%": res = x % y; break;
+        }
+      }
+
+      $("#result").text("Result = " + res)
+                  .css("color", color)
+                  .css("border-color", color);
+    }
+
+    // =============================
+    // Mouse Events
+    // =============================
+    $("#addBtn").on("click", function(){ calculate("+", "green"); });
+    $("#subBtn").on("click", function(){ calculate("-", "blue"); });
+    $("#mulBtn").on("click", function(){ calculate("*", "red"); });
+    $("#divBtn").on("click", function(){ calculate("/", "orange"); });
+    $("#modBtn").on("click", function(){ calculate("%", "gray"); });
+
+    // Mouseover and Mouseout
+    $("button").on("mouseover", function(){
+      $(this).css("opacity", "0.7");
+    }).on("mouseout", function(){
+      $(this).css("opacity", "1");
+    });
+
+    // Mouseenter and Mouseleave
+    $("button").on("mouseenter", function(){
+      $("#result").css("border-style", "dotted");
+    }).on("mouseleave", function(){
+      $("#result").css("border-style", "solid");
+    });
+
+    // Double click event
+    $("#clearBtn").on("dblclick", function(){
+      $("#numb1, #numb2").val("");
+      $("#result").text("Cleared!").css("color", "black").css("border-color", "black");
+    });
+
+    // =============================
+    // jQuery Event Demonstrations
+    // =============================
+    $("#result").before("<p><i>Result area below 👇</i></p>");
+    $("#result").after("<p><i>End of calculation area 👆</i></p>");
+    $("#result").prepend("→ ");
+    $("#result").append(" ←");
+
+    // =============================
+    // Dynamically Generate Question Buttons (Q1–Q12)
+    // =============================
+    let questions = [
+      "What is an event in JavaScript? Give examples.",
+      "What are the different ways to handle events in JavaScript?",
+      "What is the difference between inline event handling and using addEventListener()?",
+      "What are keyboard events in JavaScript? Give examples.",
+      "What are mouse events in JavaScript? Give examples.",
+      "What is jQuery, and why is it used?",
+      "How do you include jQuery in a webpage?",
+      "What is the difference between $(document).ready() and window.onload?",
+      "How do you select elements in jQuery? Give examples.",
+      "Explain the use of jQuery event handling methods like .click(), .submit(), .hover(), .append(), .prepend(), .before(), .after().",
+      "What is the difference between .html(), .css(), .text(), and .val() in jQuery?",
+      "How do you show, hide, and toggle elements in jQuery?"
+    ];
+
+    let answers = [
+      "An event is an action or occurrence that JavaScript can respond to. Examples: onclick, onkeypress, onmouseover.",
+      "Different ways: Inline events (in HTML), DOM property (element.onclick), and addEventListener().",
+      "Inline handlers are written in HTML and allow only one function. addEventListener() can attach multiple listeners and is more flexible.",
+      "Keyboard events: keydown, keypress, keyup. Example: Detecting typing in input fields.",
+      "Mouse events: click, dblclick, mouseover, mouseout, mouseenter, mouseleave, etc.",
+      "jQuery is a JavaScript library used for easier DOM manipulation, event handling, and animations.",
+      "Include using: <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>",
+      "$(document).ready() runs when DOM is loaded; window.onload waits until images & files are loaded.",
+      "By ID: $('#id'), by class: $('.class'), by tag: $('p').",
+      "jQuery methods: .click(), .submit(), .hover(), .append(), .prepend(), .before(), .after() handle user interaction.",
+      ".html() - get/set HTML; .css() - change style; .text() - change plain text; .val() - set form values.",
+      ".show(), .hide(), and .toggle() control visibility of elements."
+    ];
+
+    for (let i = 0; i < questions.length; i++) {
+      $("#qButtons").append(`<button class='qBtn' data-index='${i}'>Show Answer to Q${i+1}</button> `);
+    }
+
+    // Show Answers with jQuery .html() and .css()
+    $(".qBtn").click(function(){
+      let i = $(this).data("index");
+      $("#answers").html(`<b>Q${i+1}:</b> ${answers[i]}`)
+                   .css("color", "darkblue")
+                   .css("border-color", "darkblue");
+    });
+
+    // Demonstrate toggle (click to show/hide answers)
+    $("#answers").dblclick(function(){
+      $(this).toggle(500);
+    });
+
+  });
+  </script>
+
+</body>
+</html>
