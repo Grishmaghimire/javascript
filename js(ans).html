@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript & jQuery Q&A</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .question {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 10px 0;
+            width: 100%;
+            text-align: left;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .question:hover {
+            background-color: #2980b9;
+        }
+        .answer {
+            display: none;
+            background-color: #ecf0f1;
+            padding: 12px 20px;
+            margin: 5px 0 15px 0;
+            border-left: 4px solid #3498db;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #dfe6e9;
+            padding: 8px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>JavaScript & jQuery Q&A</h1>
+
+<!-- Questions and Answers -->
+<button class="question">1. What is an event in JavaScript? Give examples</button>
+<div class="answer">
+    <p>An <strong>event</strong> in JavaScript is an action or occurrence that happens in the web browser, which can be detected and responded to using JavaScript.</p>
+    <p>Examples:</p>
+    <ul>
+        <li>Clicking a button → <code>onclick</code></li>
+        <li>Pressing a key → <code>onkeydown</code></li>
+        <li>Hovering over an element → <code>onmouseover</code></li>
+    </ul>
+</div>
+
+<button class="question">2. Different ways to handle events in JavaScript</button>
+<div class="answer">
+    <p>There are three main ways to handle events:</p>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr><th>Method</th><th>Description</th><th>Example</th></tr>
+        <tr>
+            <td>Inline event handling</td>
+            <td>Define the event inside HTML.</td>
+            <td>&lt;button onclick="alert('Clicked!')"&gt;Click Me&lt;/button&gt;</td>
+        </tr>
+        <tr>
+            <td>DOM property method</td>
+            <td>Assign function to element property.</td>
+            <td>document.getElementById('btn').onclick = function(){ alert('Clicked!'); };</td>
+        </tr>
+        <tr>
+            <td>addEventListener()</td>
+            <td>Attach multiple handlers without overwriting.</td>
+            <td>document.getElementById('btn').addEventListener('click', function(){ alert('Clicked!'); });</td>
+        </tr>
+    </table>
+</div>
+
+<button class="question">3. Difference between inline event handling and addEventListener()</button>
+<div class="answer">
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr><th>Feature</th><th>Inline Event Handling</th><th>addEventListener()</th></tr>
+        <tr><td>Definition</td><td>Defined directly in HTML</td><td>Defined in JavaScript code</td></tr>
+        <tr><td>Number of handlers</td><td>Only one per event</td><td>Multiple handlers allowed</td></tr>
+        <tr><td>Separation of concerns</td><td>HTML and JS mixed</td><td>HTML and JS separated</td></tr>
+        <tr><td>Flexibility</td><td>Limited</td><td>Highly flexible</td></tr>
+        <tr><td>Maintainability</td><td>Harder for large projects</td><td>Easier to maintain</td></tr>
+    </table>
+</div>
+
+<button class="question">4. Keyboard events in JavaScript</button>
+<div class="answer">
+    <p>Keyboard events allow JavaScript to respond when a user interacts with the keyboard.</p>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr><th>Event</th><th>Description</th><th>Example</th></tr>
+        <tr><td>keydown</td><td>Triggered when key is pressed</td><td>document.addEventListener('keydown', e =&gt; console.log(e.key));</td></tr>
+        <tr><td>keyup</td><td>Triggered when key is released</td><td>document.addEventListener('keyup', e =&gt; console.log(e.key));</td></tr>
+        <tr><td>keypress</td><td>Triggered when key is pressed and held (deprecated)</td><td>document.addEventListener('keypress', e =&gt; console.log(e.key));</td></tr>
+    </table>
+</div>
+
+<button class="question">5. Mouse events in JavaScript</button>
+<div class="answer">
+    <p>Mouse events allow interaction using the mouse.</p>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr><th>Event</th><th>Description</th><th>Example</th></tr>
+        <tr><td>click</td><td>Fires when element is clicked</td><td>element.addEventListener('click', myFunction);</td></tr>
+        <tr><td>dblclick</td><td>Fires on double-click</td><td>element.addEventListener('dblclick', myFunction);</td></tr>
+        <tr><td>mouseover</td><td>Fires when mouse enters element</td><td>element.addEventListener('mouseover', myFunction);</td></tr>
+        <tr><td>mouseout</td><td>Fires when mouse leaves element</td><td>element.addEventListener('mouseout', myFunction);</td></tr>
+    </table>
+</div>
+
+<button class="question">6. What is jQuery and why is it used?</button>
+<div class="answer">
+    <p>jQuery is a fast, small, and feature-rich JavaScript library that simplifies DOM manipulation, event handling, animation, and Ajax. It is used because it requires less code and handles cross-browser compatibility automatically.</p>
+</div>
+
+<button class="question">7. How do you include jQuery in a webpage?</button>
+<div class="answer">
+    <p>You can include jQuery using a CDN:</p>
+    <pre>&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"&gt;&lt;/script&gt;</pre>
+</div>
+
+<button class="question">8. Difference between $(document).ready() and window.onload</button>
+<div class="answer">
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr><th>Feature</th><th>$(document).ready()</th><th>window.onload</th></tr>
+        <tr><td>Triggered when</td><td>DOM is ready</td><td>Entire page loaded (images, CSS)</td></tr>
+        <tr><td>Speed</td><td>Faster</td><td>Slower</td></tr>
+        <tr><td>Usage</td><td>jQuery method</td><td>JavaScript method</td></tr>
+        <tr><td>Multiple functions</td><td>Allowed</td><td>Only one unless overridden</td></tr>
+    </table>
+</div>
+
+<button class="question">9. How do you select elements in jQuery?</button>
+<div class="answer">
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr><th>Selector</th><th>Example</th><th>Description</th></tr>
+        <tr><td>ID</td><td>$('#myId')</td><td>Select element with id="myId"</td></tr>
+        <tr><td>Class</td><td>$('.myClass')</td><td>Select all elements with class="myClass"</td></tr>
+        <tr><td>Tag</td><td>$('p')</td><td>Select all &lt;p&gt; elements</td></tr>
+        <tr><td>Attribute</td><td>$('[type="text"]')</td><td>Select elements with attribute type="text"</td></tr>
+    </table>
+</div>
+
+<button class="question">10. jQuery event handling methods</button>
+<div class="answer">
+    <p>Common jQuery event handling methods:</p>
+    <ul>
+        <li><code>.click()</code>: Trigger function on click</li>
+        <li><code>.submit()</code>: Trigger function on form submit</li>
+        <li><code>.hover()</code>: Trigger function on mouse enter/leave</li>
+        <li><code>.append()</code>: Add content at end</li>
+        <li><code>.prepend()</code>: Add content at beginning</li>
+        <li><code>.before()</code>: Add content before element</li>
+        <li><code>.after()</code>: Add content after element</li>
+    </ul>
+</div>
+
+<button class="question">11. Difference between .html(), .css(), .text(), and .val()</button>
+<div class="answer">
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr><th>Method</th><th>Purpose</th><th>Example</th></tr>
+        <tr><td>.html()</td><td>Get or set HTML content</td><td>$('#div').html('&lt;b&gt;Bold&lt;/b&gt;');</td></tr>
+        <tr><td>.text()</td><td>Get or set plain text</td><td>$('#div').text('Hello World');</td></tr>
+        <tr><td>.css()</td><td>Get or set CSS properties</td><td>$('#div').css('color','red');</td></tr>
+        <tr><td>.val()</td><td>Get or set form element values</td><td>$('#input').val('Hello');</td></tr>
+    </table>
+</div>
+
+<button class="question">12. Show, hide, toggle elements in jQuery</button>
+<div class="answer">
+    <p>Use jQuery methods to control visibility:</p>
+    <ul>
+        <li><code>.show()</code>: Display a hidden element</li>
+        <li><code>.hide()</code>: Hide an element</li>
+        <li><code>.toggle()</code>: Toggle visibility</li>
+    </ul>
+</div>
+
+<button class="question">13. DOM Manipulation & Event Handling using Form in JavaScript</button>
+<div class="answer">
+    <p>Example of using JavaScript to handle form input and display output:</p>
+    <form id="myForm">
+        <input type="text" id="name" placeholder="Enter your name">
+        <button type="submit">Submit</button>
+    </form>
+    <div id="greeting"></div>
+    <pre>
+document.getElementById('myForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    let name = document.getElementById('name').value;
+    document.getElementById('greeting').innerText = 'Hello, ' + name + '!';
+});
+    </pre>
+</div>
+
+<!-- jQuery script to toggle answers -->
+<script>
+$(document).ready(function(){
+    $('.question').click(function(){
+        $(this).next('.answer').slideToggle();
+    });
+});
+</script>
+
+</body>
+</html>
