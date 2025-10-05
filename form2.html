@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form2 - Arithmetic Operations & Event Handling</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 40px;
+    }
+    input {
+      margin: 5px;
+      padding: 5px;
+      width: 120px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+    }
+    #add { background-color: green; }
+    #sub { background-color: blue; }
+    #mul { background-color: purple; }
+    #div { background-color: orange; }
+    #mod { background-color: red; }
+    #result {
+      margin-top: 20px;
+      padding: 10px;
+      border: 2px solid black;
+      width: 200px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Form2: Arithmetic Operations</h2>
+  <p>Enter two numbers:</p>
+
+  <input id="numb1" placeholder="First number">
+  <input id="numb2" placeholder="Second number">
+
+  <br><br>
+
+  <button id="add" onclick="calculate('add')">Add</button>
+  <button id="sub" onclick="calculate('sub')">Subtract</button>
+  <button id="mul" onclick="calculate('mul')">Multiply</button>
+  <button id="div" onclick="calculate('div')">Divide</button>
+  <button id="mod" onclick="calculate('mod')">Modulus</button>
+
+  <div id="result">Result will appear here</div>
+
+  <script>
+    // Perform arithmetic operations
+    function calculate(operation) {
+      let x = parseFloat(document.getElementById("numb1").value);
+      let y = parseFloat(document.getElementById("numb2").value);
+      let res = 0;
+      let color = "";
+
+      switch (operation) {
+        case 'add':
+          res = x + y; color = "green"; break;
+        case 'sub':
+          res = x - y; color = "blue"; break;
+        case 'mul':
+          res = x * y; color = "purple"; break;
+        case 'div':
+          res = y !== 0 ? x / y : "Cannot divide by zero"; color = "orange"; break;
+        case 'mod':
+          res = x % y; color = "red"; break;
+      }
+
+      $("#result")
+        .html("Result: " + res)
+        .css({
+          "color": color,
+          "border-color": color
+        });
+    }
+
+    // --- Keyboard Events ---
+    $("#numb1, #numb2").on("keypress", function (e) {
+      console.log("Key Pressed: " + e.key);
+    });
+    $("#numb1, #numb2").on("keydown", function (e) {
+      $("#result").text("Typing... (keydown)");
+    });
+    $("#numb1, #numb2").on("keyup", function () {
+      $("#result").text("Key released (keyup)");
+    });
+
+    // --- Mouse Events ---
+    $("button").mouseenter(function () {
+      $(this).css("opacity", "0.8");
+      $("#result").text("Mouse entered " + $(this).text() + " button");
+    });
+    $("button").mouseleave(function () {
+      $(this).css("opacity", "1");
+      $("#result").text("Mouse left " + $(this).text() + " button");
+    });
+    $("button").hover(
+      function () {
+        $("#result").text("Hovering over " + $(this).text());
+      },
+      function () {
+        $("#result").text("Stopped hovering " + $(this).text());
+      }
+    );
+
+    // --- jQuery Events (html, text, val, css) ---
+    $(document).ready(function () {
+      $("#result").css("background", "#f0f0f0");
+
+      // Example of .val() and .html()
+      $("#numb1").val("0");
+      $("#numb2").val("0");
+
+      $("#result").html("Ready to perform operations!");
+    });
+  </script>
+</body>
+</html>
